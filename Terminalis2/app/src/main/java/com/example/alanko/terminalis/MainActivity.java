@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +35,20 @@ public class MainActivity extends AppCompatActivity {
         cmd = (EditText) findViewById(R.id.editText);
         terminal = (TextView) findViewById(R.id.textView);
         terminal.setMovementMethod(new ScrollingMovementMethod());
+
+        cmd.setFocusableInTouchMode(true);
+        cmd.requestFocus();
+        cmd.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    terminal_txt = komenna(terminal_txt);
+                    cmd.setText("");
+                    return true;
+                }
+                return false;
+            }
+        });
+
         nappi.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 terminal_txt = komenna(terminal_txt);
