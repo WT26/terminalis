@@ -104,8 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             String[] commands = command.split(":");
-            Log.d("myapp", commands[0].toString());
-            if (commands[0].equals("google")) {
+            if (commands[0].equals("google")||commands[0].equals("g")) {
                 terminal_txt = terminal_txt + "opening google search..\n>";
                 terminal.setText(terminal_txt);
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/#q=" + commands[1]));
