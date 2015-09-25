@@ -2,6 +2,7 @@ package com.example.alanko.terminalis;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -16,14 +17,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class MainActivity extends AppCompatActivity {
 
     Button nappi;
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.11a";
-    ListView lista;
+    String version = "Terminalis 1.1.13a";
+    int iivi = 26;
+    int counter = 0;
 
 
     @Override
@@ -37,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         cmd = (EditText) findViewById(R.id.editText);
         terminal = (TextView) findViewById(R.id.textView);
         terminal.setMovementMethod(new ScrollingMovementMethod());
-
         cmd.setFocusableInTouchMode(true);
         cmd.requestFocus();
         cmd.setOnKeyListener(new View.OnKeyListener() {
@@ -59,11 +62,42 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    protected int generate_seed(int iivi, int event_number, int counter, int twenty_six[]){
+        if (counter >= 26) {
+            counter = 0;
+        }
+        int iivi_number = iivi;
+        // 1. First we add one number from 26list to the iivinumber
+        iivi_number += (twenty_six[counter]);
+        // 2. Then we add the number of the current event to iivinumber
+        iivi_number = iivi_number + event_number;
+        // 3. If iivi number is at this state over one hundread it minuses 100
+        // from number. If its exactly 100 it goes back to 26.
+
+        if (iivi_number > 100){
+            iivi_number -= 100;
+        }
+
+        else if ( iivi_number == 100) {
+            iivi_number = 26;
+        }
+        return iivi_number;
+    }
+    protected int ing(int event){
+
+        int twentysix_lines[] = {8, 12, 22, 1, 20, 16, 26, 17, 5, 7, 18, 14,
+                11, 9, 24, 3, 2, 15, 4, 21, 19, 6, 23, 13, 25, 10};
+        iivi = generate_seed(iivi, event, counter, twentysix_lines);
+        counter += 1;
+        return iivi;
+
+    }
+
     protected String komenna( String terminal_txt ) {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google\n>";
+            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -98,9 +132,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+
         else if (command.equals("")) {
             return terminal_txt;
         }
+
 
         try {
             String[] commands = command.split(":");
@@ -115,13 +151,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            if (commands[0].equals("ing")) {
+
+                int event = Integer.parseInt(commands[1]);
+                int iivi_ = ing( event );
+                terminal_txt = terminal_txt + "for event: " + event + "\n>iivi number is: " + iivi_ + "\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
+
+
             else {
                 terminal_txt = terminal_txt + "wrong cmd, to see all 'commands'\n>";
                 terminal.setText(terminal_txt);
                 return terminal_txt;
             }
         } catch (Exception ArrayIndexOutOfBoundsException){
-            terminal_txt = terminal_txt + "use google:search_this\n>";
+            terminal_txt = terminal_txt + "error when using ':'\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;}
     }
