@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.13a";
+    String version = "Terminalis 1.1.15a";
     int iivi = 26;
     int counter = 0;
 
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing\n>";
+            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -132,6 +133,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        else if (command.equals("wn")) {
+            Calendar calendar = Calendar.getInstance();
+            int week_number = calendar.get(Calendar.WEEK_OF_YEAR);
+            terminal_txt = terminal_txt + "current week number is " + week_number + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
 
         else if (command.equals("")) {
             return terminal_txt;
@@ -152,10 +161,17 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (commands[0].equals("ing")) {
-
                 int event = Integer.parseInt(commands[1]);
                 int iivi_ = ing( event );
                 terminal_txt = terminal_txt + "for event: " + event + "\n>iivi number is: " + iivi_ + "\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
+
+
+            if (commands[0].equals("write")||commands[0].equals("wr")) {
+                String write = commands[1];
+                terminal_txt = terminal_txt + write + "\n>";
                 terminal.setText(terminal_txt);
                 return terminal_txt;
             }
