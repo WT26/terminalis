@@ -1,5 +1,7 @@
 package com.example.alanko.terminalis;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.09a";
+    String version = "Terminalis 1.1.11a";
     ListView lista;
 
 
@@ -58,42 +60,71 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected String komenna( String terminal_txt ) {
-        String command = cmd.getText().toString();
 
+        String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp\n>";
+            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("clr")) {
             terminal_txt = ">";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("ver")) {
             terminal_txt = terminal_txt + "version: " + version + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("info")) {
             terminal_txt = terminal_txt + "terminalis is for personal use made terminal," +
                     "\n>where you can terminate few commands.\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("sp")) {
             terminal_txt = terminal_txt + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("")) {
             return terminal_txt;
         }
-        else {
-            terminal_txt = terminal_txt + "wrong cmd, to see all 'commands'\n>";
+
+        try {
+            String[] commands = command.split(":");
+            Log.d("myapp", commands[0].toString());
+            if (commands[0].equals("google")) {
+                terminal_txt = terminal_txt + "opening google search..\n>";
+                terminal.setText(terminal_txt);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com/#q=" + commands[1]));
+                startActivity(browserIntent);
+                terminal_txt = terminal_txt + "search complete.\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
+
+
+            else {
+                terminal_txt = terminal_txt + "wrong cmd, to see all 'commands'\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
+        } catch (Exception ArrayIndexOutOfBoundsException){
+            terminal_txt = terminal_txt + "use google:search_this\n>";
             terminal.setText(terminal_txt);
-            return terminal_txt;
-        }
+            return terminal_txt;}
     }
 //##########################################################################################
     @Override
