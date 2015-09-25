@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write, ksp\n>";
+            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write, ksp,\n>randomcolor";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -139,6 +139,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        else if (command.equals("randomcolor")||command.equals("randcol")) {
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(0x100000) + 0x100000; // Generates a random number between 0x10 and 0x20
+            String result = Integer.toHexString(myRandomNumber); // Random hex number in result
+
+            terminal_txt = terminal_txt + "random color: #" + result + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
+
         else if (command.equals("")) {
             return terminal_txt;
         }
@@ -172,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 terminal.setText(terminal_txt);
                 return terminal_txt;
             }
+
 
             if (commands[0].equals("ksp")) {
                 String[] kivipaperisakset = {"k", "p", "s"};
