@@ -2,22 +2,19 @@ package com.example.alanko.terminalis;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.15a";
+    String version = "Terminalis 1.1.17a";
     int iivi = 26;
     int counter = 0;
 
@@ -98,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write\n>";
+            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write, ksp\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -176,6 +173,137 @@ public class MainActivity extends AppCompatActivity {
                 return terminal_txt;
             }
 
+            if (commands[0].equals("ksp")) {
+                String[] kivipaperisakset = {"k", "p", "s"};
+
+                String opponent = "kivi";
+                Random r = new Random();
+                int i1 = r.nextInt(3);
+                if (i1 == 0) {
+                    opponent = "kivi";
+                } else if (i1 == 1) {
+                    opponent = "paperi";
+                } else{
+                    opponent = "sakset";
+                }
+
+                if(commands[1].equals("k")){
+                    String valinta = "kivi";
+                    if (kivipaperisakset[i1].equals(commands[1])){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> its draw\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent  + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                }
+                else if(commands[1].equals("p")){
+                    String valinta = "paperi";
+                    if (kivipaperisakset[i1].equals(commands[1])){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> its draw\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                }
+                else if(commands[1].equals("s")){
+                    String valinta = "sakset";
+                    if (kivipaperisakset[i1].equals(commands[1])){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> its draw\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you lost\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("s") && commands[1].equals("k")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("k") && commands[1].equals("p")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                    else if (kivipaperisakset[i1].equals("p") && commands[1].equals("s")){
+                        terminal_txt = terminal_txt + "your choice: " + valinta + "\n>opponents choice: " + opponent + "\n> you won\n>";
+                        terminal.setText(terminal_txt);
+                        return terminal_txt;
+                    }
+                }
+                return terminal_txt;
+            }
+
 
             else {
                 terminal_txt = terminal_txt + "wrong cmd, to see all 'commands'\n>";
@@ -183,9 +311,10 @@ public class MainActivity extends AppCompatActivity {
                 return terminal_txt;
             }
         } catch (Exception ArrayIndexOutOfBoundsException){
-            terminal_txt = terminal_txt + "error when using ':'\n>";
+            terminal_txt = terminal_txt + "command uses ':' to add parameters\n>";
             terminal.setText(terminal_txt);
-            return terminal_txt;}
+            return terminal_txt;
+        }
     }
 //##########################################################################################
     @Override
