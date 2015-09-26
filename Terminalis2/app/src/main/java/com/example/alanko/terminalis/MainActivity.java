@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     protected int generate_seed(int iivi, int event_number, int counter, int twenty_six[]){
         if (counter >= 26) {
             counter = 0;
@@ -103,11 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     protected String komenna( String terminal_txt ) {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds")) {
-            terminal_txt = terminal_txt + "commands: commands, clr, ver, info, sp, google, ing, wn, write, ksp,\n>randomcolor";
+            terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
+                    ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
+                    ">10. ksp:your_choice\n>11. ing:event_number\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
