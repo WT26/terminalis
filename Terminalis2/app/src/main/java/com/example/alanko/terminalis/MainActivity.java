@@ -20,10 +20,11 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     Button nappi;
+    Button x_nappi;
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.17a";
+    String version = "Terminalis 1.1.19a";
     int iivi = 26;
     int counter = 0;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //#########################################################################################
 
         nappi = (Button) findViewById(R.id.button);
+        x_nappi = (Button) findViewById(R.id.button2);
         cmd = (EditText) findViewById(R.id.editText);
         terminal = (TextView) findViewById(R.id.textView);
         terminal.setMovementMethod(new ScrollingMovementMethod());
@@ -56,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 terminal_txt = komenna(terminal_txt);
                 cmd.setText("");
+            }
+        });
+
+        x_nappi.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                terminal.setText(">");
             }
         });
     }
