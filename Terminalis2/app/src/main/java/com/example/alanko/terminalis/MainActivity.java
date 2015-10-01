@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.os.Build;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.19a";
+    String version = "Terminalis 1.1.22a";
     int iivi = 26;
     int counter = 0;
 
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         terminal.setMovementMethod(new ScrollingMovementMethod());
         cmd.setFocusableInTouchMode(true);
         cmd.requestFocus();
+
         cmd.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if ((keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         if (command.equals("commands") || command.equals("cmds")) {
             terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
-                    ">10. ksp:your_choice\n>11. ing:event_number\n>";
+                    ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -165,6 +167,19 @@ public class MainActivity extends AppCompatActivity {
             return terminal_txt;
         }
 
+        else if (command.equals("sdk")) {
+            String sdk_text = android.os.Build.MODEL;
+            terminal_txt = terminal_txt + "Your phone's sdk is: " + sdk_text + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
+        else if (command.equals("device")) {
+            String device_text = android.os.Build.DEVICE;
+            terminal_txt = terminal_txt + "Your phone's device is: " + device_text + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
 
         else if (command.equals("")) {
             return terminal_txt;
@@ -184,6 +199,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
+            if (commands[0].equals("ing")) {
+                int event = Integer.parseInt(commands[1]);
+                int iivi_ = ing( event );
+                terminal_txt = terminal_txt + "for event: " + event + "\n>iivi number is: " + iivi_ + "\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
             if (commands[0].equals("ing")) {
                 int event = Integer.parseInt(commands[1]);
                 int iivi_ = ing( event );
