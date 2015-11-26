@@ -1,5 +1,8 @@
 package com.example.alanko.terminalis;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.23a";
+    String version = "Terminalis 1.1.30a";
     int iivi = 26;
     int counter = 0;
 
@@ -113,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
         if (command.equals("commands") || command.equals("cmds")) {
             terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
-                    ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n>";
+                    ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
+                    ">15. notify:notify_this\n>16. randomint\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -163,6 +167,14 @@ public class MainActivity extends AppCompatActivity {
             String result = Integer.toHexString(myRandomNumber); // Random hex number in result
 
             terminal_txt = terminal_txt + "random color: #" + result + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+        else if (command.equals("randomint")||command.equals("randint")) {
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(10); // Generates a random number between 0x10 and 0x20
+
+            terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -229,6 +241,27 @@ public class MainActivity extends AppCompatActivity {
                 return terminal_txt;
             }
 
+            if (commands[0].equals("notify")) {
+                String write = commands[1];
+
+                Intent intent = new Intent(this, NotificationReceiver.class);
+                PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
+
+                Notification n  = new Notification.Builder(this)
+                        .setContentTitle("Terminalis notification")
+                        .setContentText(write)
+                        .setSmallIcon(R.drawable.buttonshape)
+                        .setContentIntent(pIntent)
+                        .setAutoCancel(true).build();
+
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(0, n);
+
+                terminal_txt = terminal_txt + "Notification done.\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
 
             if (commands[0].equals("ksp")) {
                 String[] kivipaperisakset = {"k", "p", "s"};

@@ -17,7 +17,8 @@
         android:layout_alignParentEnd="true"
         android:singleLine="true"
         android:lines="1"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="#cffcff" />
 
     <TextView
         android:layout_width="wrap_content"
