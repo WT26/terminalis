@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.30a";
+    String version = "Terminalis 1.1.31a";
     int iivi = 26;
     int counter = 0;
 
@@ -113,11 +113,12 @@ public class MainActivity extends AppCompatActivity {
     protected String komenna( String terminal_txt ) {
 
         String command = cmd.getText().toString();
-        if (command.equals("commands") || command.equals("cmds")) {
+        if (command.equals("commands") || command.equals("cmds") || command.equals("c")) {
             terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
-                    ">15. notify:notify_this\n>16. randomint\n>";
+                    ">15. notify:notify_this\n>16. randomint\n>17. binary\n" +
+                    ">";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -170,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
         else if (command.equals("randomint")||command.equals("randint")) {
             Random rand = new Random();
             int myRandomNumber = rand.nextInt(10); // Generates a random number between 0x10 and 0x20
@@ -179,12 +182,14 @@ public class MainActivity extends AppCompatActivity {
             return terminal_txt;
         }
 
+
         else if (command.equals("sdk")) {
             String sdk_text = android.os.Build.MODEL;
             terminal_txt = terminal_txt + "Your phone's sdk is: " + sdk_text + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
 
         else if (command.equals("device")) {
             String device_text = android.os.Build.DEVICE;
@@ -193,12 +198,37 @@ public class MainActivity extends AppCompatActivity {
             return terminal_txt;
         }
 
+
         else if (command.equals("brand")) {
             String brand_text = Build.BRAND;
             terminal_txt = terminal_txt + "Your phone's brand is: " + brand_text + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
+
+
+        else if (command.equals("binary")) {
+
+            //Basic binary here, nothing to see.. I still need a littlebit more. 26
+            terminal_txt = terminal_txt + "some binary for you:\n>" +
+                    "0100001001100001011100110110100101100011\n>" +
+                    "00100000011000100110100101101110011000010\n>" +
+                    "11100100111100100100000011010000110010101\n>" +
+                    "11001001100101001011000010000001101110011\n>" +
+                    "01111011101000110100001101001011011100110\n>" +
+                    "01110010000001110100011011110010000001110\n>" +
+                    "01101100101011001010010111000101110001000\n>" +
+                    "00010010010010000001110011011101000110100\n>" +
+                    "10110110001101100001000000110111001100101\n>" +
+                    "01100101011001000010000001100001001000000\n>" +
+                    "11011000110100101110100011101000110110001\n>" +
+                    "10010101100010011010010111010000100000011\n>" +
+                    "01101011011110111001001100101001011100010\n>" +
+                    "00000011001000110110001100101001011100010\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
 
         else if (command.equals("")) {
             return terminal_txt;
