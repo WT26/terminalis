@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.34a";
+    String version = "Terminalis 1.1.35a";
     int iivi = 26;
     int counter = 0;
 
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         terminal.setMovementMethod(new ScrollingMovementMethod());
         cmd.setFocusableInTouchMode(true);
         cmd.requestFocus();
+
 
         cmd.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -128,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
-                    ">";
+                    ">20. riddle\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -185,9 +186,52 @@ public class MainActivity extends AppCompatActivity {
 
         else if (command.equals("randomint")||command.equals("randint")) {
             Random rand = new Random();
-            int myRandomNumber = rand.nextInt(10); // Generates a random number between 0x10 and 0x20
+            int myRandomNumber = rand.nextInt(10);
 
             terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
+        else if (command.equals("riddle")) {
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(21); // Generates a random number 0-10
+            String riddles[] = {"what it greater than God, more evil than devil, the poor have it," +
+                    " the rich need it, and if you eat it, you will die?",
+                    "who makes it, has no need of it. Who buys it, " +
+                    "has no use for it. Who uses it neither can see nor feel it.",
+                    "which creature walk on all four legs in the morning, two legs" +
+                    " in the afternoon, and three legs in the evening?",
+                    "what can travel around the world while staying in a corner?",
+                    "what gets wetter and wetter the more it dries?",
+                    "what kind of tree can you carry in your hand?",
+                    "if you have me, you want to share me. Although " +
+                    "if you share me, you don’t have me.",
+                    "what gets broken without being held?",
+                    "forward im heavy, but backwards I am not",
+                    "what has roots as nobody sees, is taller than" +
+                    " trees up up up it goes, and yet never grows?",
+                    "a box without hinges, key or lid, yet golden treasure inside is hid",
+                    "when it sit, then it",
+                    "you sit and you sweat",
+                    "Almost third third of third.",
+                    "With tip of your finger, you can lift it up. Unless you’re on it," +
+                    " then it takes you down",
+                    "without this, we can be introduced to new things",
+                    "makes land dark, yet growing",
+                    "king of measuring",
+                    "being late to party, youre sad you cant" +
+                            " solo and you have to pair up.",
+                    "when distance and sharpness are disproportional.",
+                    "void where not fastest wave nor particle touch",
+                    "smart enough to know news of the world, but not enough to notice closest"};
+            String answers[] = {"nothing", "coffin", "human/man", "a stamp", "a towel", "a palm",
+                                "secret", "a promise", "ton", "mountain", "egg", "fits", "sauna",
+                                "twenty-sixth", "computer chair/office chair", "ado", "raincloud",
+                                "ruler", "bus", "myopic", "shadow", "smart phone"};
+
+            terminal_txt = terminal_txt + "Random riddle:\n>" + riddles[myRandomNumber] +
+                    "\n>The Answer:\n>" + answers[myRandomNumber] + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
