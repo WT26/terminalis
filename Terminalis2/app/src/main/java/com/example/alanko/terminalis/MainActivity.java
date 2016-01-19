@@ -19,8 +19,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Build;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.35a";
+    String version = "Terminalis 1.1.37a";
     int iivi = 26;
     int counter = 0;
 
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
-                    ">20. riddle\n>";
+                    ">20. riddle\n>21. randomanimal\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -187,6 +195,42 @@ public class MainActivity extends AppCompatActivity {
         else if (command.equals("randomint")||command.equals("randint")) {
             Random rand = new Random();
             int myRandomNumber = rand.nextInt(10);
+
+            terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
+        else if (command.equals("randomanimal")||command.equals("randan")) {
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(10);
+            List<String> animals = new ArrayList<>();
+            String line = "";
+
+            try {
+                // open the file for reading
+                InputStream instream = new FileInputStream("animalsenglish.txt");
+
+
+                // if file the available for reading
+                if (instream != null) {
+                    // prepare the file for reading
+                    InputStreamReader inputreader = new InputStreamReader(instream);
+                    BufferedReader buffreader = new BufferedReader(inputreader);
+
+                    line = "";
+
+                    // read every line of the file into the line-variable, on line at the time
+                    do {
+                        line = buffreader.readLine();
+                        // do something with the line
+                        animals.add(line);
+                    } while (line != null);
+                    instream.close();
+                }
+            } catch (Exception ex) {
+                // print stack trace.
+            }
 
             terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
             terminal.setText(terminal_txt);
