@@ -1,5 +1,7 @@
 package com.example.alanko.terminalis;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -23,12 +25,14 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AdView mAdView;
+
     Button nappi;
     Button x_nappi;
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.31a";
+    String version = "Terminalis 1.1.33a";
     int iivi = 26;
     int counter = 0;
 
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 //#########################################################################################
 
