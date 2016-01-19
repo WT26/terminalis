@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.33a";
+    String version = "Terminalis 1.1.34a";
     int iivi = 26;
     int counter = 0;
 
@@ -42,9 +42,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // ads
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        mAdView.setVisibility(View.GONE);
 
 //#########################################################################################
 
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
-                    ">15. notify:notify_this\n>16. randomint\n>17. binary\n" +
+                    ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
                     ">";
             terminal.setText(terminal_txt);
             return terminal_txt;
@@ -239,6 +241,19 @@ public class MainActivity extends AppCompatActivity {
 
 
         else if (command.equals("")) {
+            return terminal_txt;
+        }
+
+        else if (command.equals("showad")) {
+            mAdView.setVisibility(View.VISIBLE);
+            return terminal_txt;
+        }
+
+        else if (command.equals("hidead")) {
+            mAdView = (AdView) findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+            mAdView.setVisibility(View.GONE);
             return terminal_txt;
         }
 
