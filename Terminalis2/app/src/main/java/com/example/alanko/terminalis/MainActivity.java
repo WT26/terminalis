@@ -5,11 +5,14 @@ import com.google.android.gms.ads.AdView;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.37a";
+    String version = "Terminalis 1.1.39a";
     int iivi = 26;
     int counter = 0;
 
@@ -203,14 +206,14 @@ public class MainActivity extends AppCompatActivity {
 
         else if (command.equals("randomanimal")||command.equals("randan")) {
             Random rand = new Random();
-            int myRandomNumber = rand.nextInt(10);
+            int myRandomNumber = rand.nextInt(226);
             List<String> animals = new ArrayList<>();
             String line = "";
 
             try {
                 // open the file for reading
-                InputStream instream = new FileInputStream("animalsenglish.txt");
-
+                AssetManager assetManager = getAssets();
+                InputStream instream = assetManager.open("animalsenglish.txt");
 
                 // if file the available for reading
                 if (instream != null) {
@@ -225,14 +228,16 @@ public class MainActivity extends AppCompatActivity {
                         line = buffreader.readLine();
                         // do something with the line
                         animals.add(line);
+
                     } while (line != null);
                     instream.close();
                 }
             } catch (Exception ex) {
                 // print stack trace.
+
             }
 
-            terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
+            terminal_txt = terminal_txt + "random animal: " + animals.get(myRandomNumber) + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -275,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                                 "ruler", "bus", "myopic", "shadow", "smart phone"};
 
             terminal_txt = terminal_txt + "Random riddle:\n>" + riddles[myRandomNumber] +
-                    "\n>The Answer:\n>" + answers[myRandomNumber] + "\n>";
+                    "\n>\n>The Answer:\n>" + answers[myRandomNumber] + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -308,21 +313,28 @@ public class MainActivity extends AppCompatActivity {
         else if (command.equals("binary")) {
 
             //Basic binary here, nothing to see.. I still need a littlebit more. 26
+
             terminal_txt = terminal_txt + "some binary for you:\n>" +
-                    "0100001001100001011100110110100101100011\n>" +
-                    "00100000011000100110100101101110011000010\n>" +
-                    "11100100111100100100000011010000110010101\n>" +
-                    "11001001100101001011000010000001101110011\n>" +
-                    "01111011101000110100001101001011011100110\n>" +
-                    "01110010000001110100011011110010000001110\n>" +
-                    "01101100101011001010010111000101110001000\n>" +
-                    "00010010010010000001110011011101000110100\n>" +
-                    "10110110001101100001000000110111001100101\n>" +
-                    "01100101011001000010000001100001001000000\n>" +
-                    "11011000110100101110100011101000110110001\n>" +
-                    "10010101100010011010010111010000100000011\n>" +
-                    "01101011011110111001001100101001011100010\n>" +
-                    "00000011001000110110001100101001011100010\n>";
+                    "01000010011000010111001101101001011000110010000001100010\n>" +
+                    "01101001011011100110000101110010011110010010000001101000\n>" +
+                    "01100101011100100110010100101100001000000110111001101111\n>" +
+                    "01110100011010000110100101101110011001110010000001110100\n>" +
+                    "01101111001000000111001101100101011001010010111000101110\n>" +
+                    "00100000010010010010000001110011011101000110100101101100\n>" +
+                    "01101100001000000110111001100101011001010110010000100000\n>" +
+                    "01100001001000000110110001101001011101000111010001101100\n>" +
+                    "01100101011000100110100101110100001000000110110101101111\n>" +
+                    "01110010011001010010111000100000001100100011011000110010\n>" +
+                    "01000010011000010111001101101001011000110010000001100010\n>" +
+                    "01101001011011100110000101110010011110010010000001101000\n>" +
+                    "01100101011100100110010100101100001000000110111001101111\n>" +
+                    "01110100011010000110100101101110011001110010000001110100\n>" +
+                    "01101111001000000111001101100101011001010010111000101110\n>" +
+                    "00100000010010010010000001110011011101000110100101101100\n>" +
+                    "01101100001000000110111001100101011001010110010000100000\n>" +
+                    "01100001001000000110110001101001011101000111010001101100\n>" +
+                    "01100101011000100110100101110100001000000110110101101111\n>" +
+                    "01110010011001010010111000100000001100100011011000110010\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
