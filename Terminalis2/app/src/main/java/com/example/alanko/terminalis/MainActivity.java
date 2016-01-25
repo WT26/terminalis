@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.39a";
+    String version = "Terminalis 1.1.40a";
     int iivi = 26;
     int counter = 0;
 
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
-                    ">20. riddle\n>21. randomanimal\n>";
+                    ">20. riddle\n>21. randomanimal\n>22. randomcoin";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
@@ -200,6 +200,22 @@ public class MainActivity extends AppCompatActivity {
             int myRandomNumber = rand.nextInt(10);
 
             terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
+            terminal.setText(terminal_txt);
+            return terminal_txt;
+        }
+
+        else if (command.equals("randomcoin")||command.equals("randcoin")) {
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(2);
+            String coin = "HEADS";
+
+            if(myRandomNumber == 1){
+                coin = "HEADS";
+            }
+            else if(myRandomNumber == 2){
+                coin = "TAILS";
+            }
+            terminal_txt = terminal_txt + "Flipping the coin.. The coin is:\n>" + coin + "\n>";
             terminal.setText(terminal_txt);
             return terminal_txt;
         }
