@@ -29,8 +29,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.42a";
+    String version = "Terminalis 1.1.44a";
     int iivi = 26;
     int counter = 0;
     int total_commands;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Getting "totalcommands" from save
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         total_commands = preferences.getInt("TotalCommands", 0);
 
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
                     ">20. riddle\n>21. randomanimal\n>22. randomcoin\n>23. randomnumber:this_is_max\n" +
-                    ">24. stats\n>";
+                    ">24. stats\n>25. date\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
             return terminal_txt;
@@ -412,6 +415,16 @@ public class MainActivity extends AppCompatActivity {
             return terminal_txt;
         }
 
+        else if (command.equals("date")|| command.equals("dt")) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            Date date = new Date();
+
+            terminal_txt = terminal_txt + "Date: " + dateFormat.format(date) + "\n>";
+            terminal.setText(terminal_txt);
+            total_commands += 1;
+            return terminal_txt;
+        }
+
 
         try {
             String[] commands = command.split(":");
@@ -646,6 +659,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop(){
         super.onStop();
 
+        // Commit current TotalCommands to save
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("TotalCommands", total_commands);
