@@ -49,6 +49,7 @@
         android:layout_centerHorizontal="true">
     </com.google.android.gms.ads.AdView>
 
+
     <Button
         android:id="@+id/button"
         android:text="CMD>"
