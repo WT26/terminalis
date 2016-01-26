@@ -7,8 +7,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -36,6 +38,7 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String myPrefsKey = "MyPrefsFile";
     private AdView mAdView;
 
     Button nappi;
@@ -43,9 +46,12 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.41a";
+    String version = "Terminalis 1.1.42a";
     int iivi = 26;
     int counter = 0;
+    int total_commands;
+
+
 
 
     @Override
@@ -53,11 +59,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        total_commands = preferences.getInt("TotalCommands", 0);
+
         // ads
         mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mAdView.setVisibility(View.GONE);
+
+        //setting preferences
+
 
 
 //#########################################################################################
@@ -141,8 +153,10 @@ public class MainActivity extends AppCompatActivity {
                     ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
-                    ">20. riddle\n>21. randomanimal\n>22. randomcoin\n>23. randomnumber:this_is_max";
+                    ">20. riddle\n>21. randomanimal\n>22. randomcoin\n>23. randomnumber:this_is_max\n" +
+                    ">24. stats\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -150,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
         else if (command.equals("clr")) {
             terminal_txt = ">";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -157,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         else if (command.equals("ver")) {
             terminal_txt = terminal_txt + "version: " + version + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -165,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             terminal_txt = terminal_txt + "terminalis is for personal use made terminal," +
                     "\n>where you can terminate few commands.\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -172,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
         else if (command.equals("sp")) {
             terminal_txt = terminal_txt + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -181,17 +199,19 @@ public class MainActivity extends AppCompatActivity {
             int week_number = calendar.get(Calendar.WEEK_OF_YEAR);
             terminal_txt = terminal_txt + "current week number is " + week_number + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
 
         else if (command.equals("randomcolor")||command.equals("randcol")) {
             Random rand = new Random();
-            int myRandomNumber = rand.nextInt(0x100000) + 0x100000; // Generates a random number between 0x10 and 0x20
+            int myRandomNumber = rand.nextInt(0xffffff); // Generates a random number between 0x10 and 0x20
             String result = Integer.toHexString(myRandomNumber); // Random hex number in result
 
             terminal_txt = terminal_txt + "random color: #" + result + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -202,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
             terminal_txt = terminal_txt + "random integer: " + myRandomNumber + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -218,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             }
             terminal_txt = terminal_txt + "Flipping the coin.. The coin is:\n>" + coin + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -256,6 +278,7 @@ public class MainActivity extends AppCompatActivity {
 
             terminal_txt = terminal_txt + "random animal: " + animals.get(myRandomNumber) + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -299,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
             terminal_txt = terminal_txt + "Random riddle:\n>" + riddles[myRandomNumber] +
                     "\n>\n>The Answer:\n>" + answers[myRandomNumber] + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -307,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
             String sdk_text = android.os.Build.MODEL;
             terminal_txt = terminal_txt + "Your phone's sdk is: " + sdk_text + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -315,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
             String device_text = android.os.Build.DEVICE;
             terminal_txt = terminal_txt + "Your phone's device is: " + device_text + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -323,6 +349,7 @@ public class MainActivity extends AppCompatActivity {
             String brand_text = Build.BRAND;
             terminal_txt = terminal_txt + "Your phone's brand is: " + brand_text + "\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -353,16 +380,19 @@ public class MainActivity extends AppCompatActivity {
                     "01100101011000100110100101110100001000000110110101101111\n>" +
                     "01110010011001010010111000100000001100100011011000110010\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
 
 
         else if (command.equals("")) {
+            total_commands += 1;
             return terminal_txt;
         }
 
         else if (command.equals("showad")) {
             mAdView.setVisibility(View.VISIBLE);
+            total_commands += 1;
             return terminal_txt;
         }
 
@@ -371,6 +401,14 @@ public class MainActivity extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().build();
             mAdView.loadAd(adRequest);
             mAdView.setVisibility(View.GONE);
+            total_commands += 1;
+            return terminal_txt;
+        }
+
+        else if (command.equals("stats")) {
+            total_commands += 1;
+            terminal_txt = terminal_txt + "Total commands: " + total_commands + "\n>";
+            terminal.setText(terminal_txt);
             return terminal_txt;
         }
 
@@ -563,6 +601,7 @@ public class MainActivity extends AppCompatActivity {
                         return terminal_txt;
                     }
                 }
+                total_commands += 1;
                 return terminal_txt;
             }
 
@@ -570,11 +609,13 @@ public class MainActivity extends AppCompatActivity {
             else {
                 terminal_txt = terminal_txt + "wrong cmd, to see all 'commands'\n>";
                 terminal.setText(terminal_txt);
+                total_commands += 1;
                 return terminal_txt;
             }
         } catch (Exception ArrayIndexOutOfBoundsException){
             terminal_txt = terminal_txt + "command uses ':' to add parameters\n>";
             terminal.setText(terminal_txt);
+            total_commands += 1;
             return terminal_txt;
         }
     }
@@ -599,5 +640,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("TotalCommands", total_commands);
+        editor.apply();
     }
 }
