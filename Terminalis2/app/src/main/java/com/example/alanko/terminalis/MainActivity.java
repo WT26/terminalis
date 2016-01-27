@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.44a";
+    String version = "Terminalis 1.1.45a";
     int iivi = 26;
     int counter = 0;
     int total_commands;
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
                     ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
                     ">20. riddle\n>21. randomanimal\n>22. randomcoin\n>23. randomnumber:this_is_max\n" +
-                    ">24. stats\n>25. date\n>";
+                    ">24. stats\n>25. date\n>26. randomshape\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
             return terminal_txt;
@@ -420,6 +420,29 @@ public class MainActivity extends AppCompatActivity {
             Date date = new Date();
 
             terminal_txt = terminal_txt + "Date: " + dateFormat.format(date) + "\n>";
+            terminal.setText(terminal_txt);
+            total_commands += 1;
+            return terminal_txt;
+        }
+
+        else if (command.equals("randomshape") || command.equals("randsh")) {
+            String shape = "";
+            Random rand = new Random();
+            int myRandomNumber = rand.nextInt(1);
+            if (myRandomNumber == 1 || myRandomNumber == 0){
+                shape = "##########\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">#                      #\n" +
+                        ">##########\n";
+            }
+
+            terminal_txt = terminal_txt + "Your shape:\n>" + shape + "\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
             return terminal_txt;
