@@ -1,4 +1,4 @@
-package com.example.alanko.terminalis;
+package com.wt.terminalis;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

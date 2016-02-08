@@ -1,7 +1,9 @@
-package com.example.alanko.terminalis;
+package com.wt.terminalis;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.wt.terminalis.terminalis.R;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -44,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
     EditText cmd;
     TextView terminal;
     String terminal_txt = ">";
-    String version = "Terminalis 1.1.46a";
+    String version = "Terminalis 1.1.48a";
     int iivi = 26;
     int counter = 0;
     int total_commands;
-
-
 
 
     @Override
