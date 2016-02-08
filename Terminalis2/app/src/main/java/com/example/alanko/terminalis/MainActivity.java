@@ -5,7 +5,6 @@ import com.google.android.gms.ads.AdView;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -15,7 +14,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,8 +24,6 @@ import android.widget.TextView;
 import android.os.Build;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
@@ -36,7 +32,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -153,19 +148,21 @@ public class MainActivity extends AppCompatActivity {
 
         String command = cmd.getText().toString();
         if (command.equals("commands") || command.equals("cmds") || command.equals("c")) {
-            terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. ver\n>4. clr\n" +
-                    ">5. sp\n>6. wn\n>7. randomcolor\n>8. google:search_this\n>9. write:print_this\n" +
-                    ">10. ksp:your_choice\n>11. ing:event_number\n>12. sdk\n>13. device \n>14. brand\n" +
-                    ">15. notify:notify_this\n>16. randomint\n>17. binary\n>18. showad\n>19. hidead\n" +
-                    ">20. riddle\n>21. randomanimal\n>22. randomcoin\n>23. randomnumber:this_is_max\n" +
-                    ">24. stats\n>25. date\n>26. randomshape\n>27. randomsound\n>";
+            terminal_txt = terminal_txt + "commands:\n>1. commands\n>2. info\n>3. version\n>4. clear\n" +
+                    ">5. space\n>6. wn\n>7. sdk\n>8. device\n>9. brand\n" +
+                    ">10. stats\n>11. showad\n>12. hidead\n>13. date \n>14. binary\n" +
+                    ">15. riddle\n>16. randomint\n>17. randomanimal\n>18. randomshape\n>19. randomcolor\n" +
+                    ">20. randomcoin\n>21. randomsound\n>22. randomnumber:this_is_max\n>23. google:search_this\n" +
+                    ">24. ksp:your_choice\n>25. notify:notify_this\n>27. write:print_this\n>";
+            //26. ing:event_number
+            //32. set:ing_number
             terminal.setText(terminal_txt);
             total_commands += 1;
             return terminal_txt;
         }
 
 
-        else if (command.equals("clr")) {
+        else if (command.equals("clr") || command.equals("clear")) {
             terminal_txt = ">";
             terminal.setText(terminal_txt);
             total_commands += 1;
@@ -173,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        else if (command.equals("ver")) {
+        else if (command.equals("ver") || command.equals("version")) {
             terminal_txt = terminal_txt + "version: " + version + "\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
@@ -182,15 +179,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         else if (command.equals("info")) {
-            terminal_txt = terminal_txt + "terminalis is for personal use made terminal," +
-                    "\n>where you can terminate few commands.\n>";
+            terminal_txt = terminal_txt + "Terminalis is for personal use made terminal," +
+                    "\n>where you can terminate few commands to do \n" +
+                    ">stuff on your android." +
+                    "Thank you for downloading.\n" +
+                    ">Use however you please.\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
             return terminal_txt;
         }
 
 
-        else if (command.equals("sp")) {
+        else if (command.equals("space") || command.equals("sp")) {
             terminal_txt = terminal_txt + "\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
                                 "twenty-sixth", "computer chair/office chair", "ado", "raincloud",
                                 "ruler", "bus", "myopic", "shadow", "smart phone"};
 
-            terminal_txt = terminal_txt + "Random riddle:\n>" + riddles[myRandomNumber] +
+            terminal_txt = terminal_txt + "\n>Random riddle:\n>" + riddles[myRandomNumber] +
                     "\n>\n>The Answer:\n>" + answers[myRandomNumber] + "\n>";
             terminal.setText(terminal_txt);
             total_commands += 1;
@@ -497,6 +497,13 @@ public class MainActivity extends AppCompatActivity {
                 int event = Integer.parseInt(commands[1]);
                 int iivi_ = ing( event );
                 terminal_txt = terminal_txt + "for event: " + event + "\n>iivi number is: " + iivi_ + "\n>";
+                terminal.setText(terminal_txt);
+                return terminal_txt;
+            }
+
+            if (commands[0].equals("set")) {
+                int event = Integer.parseInt(commands[1]);
+                iivi = event;
                 terminal.setText(terminal_txt);
                 return terminal_txt;
             }
